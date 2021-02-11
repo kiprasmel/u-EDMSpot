@@ -86,7 +86,7 @@ uw.use(async () => {
                 .map(([key, val]) => [key, val.toLink()])
         );
 
-        const webClient = createWebClient('/', {
+        const webClient = createWebClient({
             apiBase: '/api',
             title: '♪ Electronic Dance Music ♪',
             emoji: Object.assign(
