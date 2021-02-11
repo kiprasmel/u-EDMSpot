@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "uedmspot",
+    "dependencies": {
+        "@mkody/twitch-emoticons": "^2.3.0",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "u-wave-announce": "^0.5.1",
+        "u-wave-core": "file:../core",
+        "u-wave-source-soundcloud": "^2.0.0",
+        "u-wave-source-youtube": "^1.3.0",
+        "u-wave-web": "file:../web/packages/u-wave-web-middleware"
+    },
+    "scripts": {
+        "start": "node index.js"
+    }
+}
