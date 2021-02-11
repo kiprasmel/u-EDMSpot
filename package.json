@@ -14,6 +14,6 @@
     "scripts": {
         "core": "cd ../core && npm run test",
         "web": "cd ../web && npm run prerelease",
-        "start": "npm update && node index.js"
+        "start": "node index.js"
     }
 }
