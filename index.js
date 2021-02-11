@@ -13,10 +13,6 @@ const port = process.env.PORT;
 const secret = Buffer.from(process.env.SECRET, 'hex');
 
 const fetcher = new EmoteFetcher();
-const channels = [
-    { "id": "23161357" },
-    { "id": "71092938" }
-];
 
 const uw = uwave({
     port,
@@ -53,32 +49,14 @@ uw.use(async () => {
         fetcher.fetchTwitchEmotes(),
         fetcher.fetchBTTVEmotes(),
 
-        channels.forEach(async function (channel, index) {
-            try {
-                fetcher.fetchTwitchEmotes(channel.id);
-            }
-            catch {
-                console.error('Failed Loading Twitch Emotes!');
-            }
-        }),
+        fetcher.fetchTwitchEmotes(23161357), //Lirik
+        fetcher.fetchTwitchEmotes(71092938), //xQcOW
 
-        channels.forEach(async function (channel, index) {
-            try {
-                fetcher.fetchBTTVEmotes(channel.id);
-            }
-            catch {
-                console.error('Failed Loading BTTV Emotes!');
-            }
-        }),
+        fetcher.fetchBTTVEmotes(23161357),
+        fetcher.fetchBTTVEmotes(71092938),
 
-        channels.forEach(async function (channel, index) {
-            try {
-                //fetcher.fetchFFZEmotes(channel.id);
-            }
-            catch {
-                console.error('Failed Loading FFZ Emotes!');
-            }
-        })
+        fetcher.fetchFFZEmotes(23161357),
+        fetcher.fetchFFZEmotes(71092938)
     ]).then(() => {
         const fetchEmotes = Object.fromEntries(fetcher.emotes);
         const cleanEmotes = Object.fromEntries(
