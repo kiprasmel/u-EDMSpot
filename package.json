@@ -12,6 +12,8 @@
         "u-wave-web": "file:../web/packages/u-wave-web-middleware"
     },
     "scripts": {
-        "start": "node index.js"
+        "core": "cd ../core && npm run test",
+        "web": "cd ../web && npm run prerelease",
+        "start": "npm update && node index.js"
     }
 }
