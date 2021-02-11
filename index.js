@@ -5,18 +5,32 @@ const youTubeSource = require('u-wave-source-youtube');
 const soundCloudSource = require('u-wave-source-soundcloud');
 const dotenv = require('dotenv');
 const announce = require('u-wave-announce');
-const { EmoteFetcher, EmoteParser } = require('@mkody/twitch-emoticons');
+const { EmoteFetcher } = require('@mkody/twitch-emoticons');
 
 dotenv.config();
 
 const port = process.env.PORT;
 const secret = Buffer.from(process.env.SECRET, 'hex');
 
+const fetcher = new EmoteFetcher();
+const channels = [
+    { "id": "23161357" },
+    { "id": "71092938" }
+];
+
 const uw = uwave({
     port,
     secret,
     redis: process.env.REDIS,
     mongo: process.env.MONGO
+});
+
+uw.on('mongoError', (err) => {
+    throw console.error(err, 'Could not connect to MongoDB. Is it installed and running?');
+});
+
+uw.on('redisError', (err) => {
+    throw console.error(err, 'Could not connect to the Redis server. Is it installed and running?');
 });
 
 uw.use(announce);
@@ -32,12 +46,6 @@ uw.use(async () => {
         key: process.env.SOUNDCLOUD_API_KEY
     });
 });
-
-const fetcher = new EmoteFetcher();
-const channels = [
-    { "id": "23161357" },
-    { "id": "71092938" }
-];
 
 uw.use(async () => {
     //Load Twitch Emotes
@@ -78,7 +86,7 @@ uw.use(async () => {
                 .map(([key, val]) => [key, val.toLink()])
         );
 
-        const webClient = createWebClient(null, {
+        const webClient = createWebClient('/', {
             apiBase: '/api',
             title: '♪ Electronic Dance Music ♪',
             emoji: Object.assign(
