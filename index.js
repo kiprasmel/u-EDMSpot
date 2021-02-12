@@ -18,6 +18,11 @@ const secret = Buffer.from(process.env.SECRET, 'hex');
 
 const fetcher = new EmoteFetcher();
 
+const recaptcha = {
+    secret: process.env.CAPTCHA_SECRET,
+    key: process.env.CAPTCHA_KEY
+};
+
 const emailSettings = {
     service: 'gmail',
     auth: {
@@ -29,7 +34,7 @@ const emailSettings = {
 const uw = uwave({
     port,
     secret,
-    recaptcha: { secret: process.env.CAPTCHA_SECRET, key: process.env.CAPTCHA_KEY },
+    recaptcha,
     redis: process.env.REDIS,
     mongo: process.env.MONGO
 });
@@ -86,7 +91,7 @@ uw.use(async () => {
         const webClient = createWebClient({
             apiBase: '/api',
             title: '♪ Electronic Dance Music ♪',
-            recaptcha: { key: process.env.CAPTCHA_KEY },
+            recaptcha: recaptcha && { key: recaptcha.key },
             emoji: Object.assign(
                 {},
                 cleanEmotes
