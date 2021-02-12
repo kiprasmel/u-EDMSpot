@@ -1,4 +1,5 @@
 const { Buffer } = require('buffer');
+const path = require('path');
 const uwave = require('u-wave-core');
 const createWebClient = require('u-wave-web/middleware').default;
 const youTubeSource = require('u-wave-source-youtube');
@@ -9,14 +10,26 @@ const { EmoteFetcher } = require('@mkody/twitch-emoticons');
 
 dotenv.config();
 
+const configPath = './config';
+const config = require(path.resolve(process.cwd(), configPath));
+
 const port = process.env.PORT;
 const secret = Buffer.from(process.env.SECRET, 'hex');
 
 const fetcher = new EmoteFetcher();
 
+const emailSettings = {
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD
+    }
+};
+
 const uw = uwave({
     port,
     secret,
+    recaptcha: { secret: process.env.CAPTCHA_SECRET, key: process.env.CAPTCHA_KEY },
     redis: process.env.REDIS,
     mongo: process.env.MONGO
 });
@@ -51,12 +64,18 @@ uw.use(async () => {
 
         fetcher.fetchTwitchEmotes(23161357), //Lirik
         fetcher.fetchTwitchEmotes(71092938), //xQcOW
+        fetcher.fetchTwitchEmotes(22484632), //forsen
+        fetcher.fetchTwitchEmotes(40972890), //AdmiralBahroo
 
         fetcher.fetchBTTVEmotes(23161357),
         fetcher.fetchBTTVEmotes(71092938),
+        fetcher.fetchBTTVEmotes(22484632),
+        fetcher.fetchBTTVEmotes(40972890),
 
         fetcher.fetchFFZEmotes(23161357),
-        fetcher.fetchFFZEmotes(71092938)
+        fetcher.fetchFFZEmotes(71092938),
+        fetcher.fetchFFZEmotes(22484632),
+        fetcher.fetchFFZEmotes(40972890)
     ]).then(() => {
         const fetchEmotes = Object.fromEntries(fetcher.emotes);
         const cleanEmotes = Object.fromEntries(
@@ -67,6 +86,7 @@ uw.use(async () => {
         const webClient = createWebClient({
             apiBase: '/api',
             title: '♪ Electronic Dance Music ♪',
+            recaptcha: { key: process.env.CAPTCHA_KEY },
             emoji: Object.assign(
                 {},
                 cleanEmotes
