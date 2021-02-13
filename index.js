@@ -25,6 +25,7 @@ const recaptcha = {
 
 const emailSettings = {
     service: 'gmail',
+    host: 'smtp.gmail.com',
     auth: {
         user: process.env.EMAIL,
         pass: process.env.EMAIL_PASSWORD
@@ -35,6 +36,8 @@ const uw = uwave({
     port,
     secret,
     recaptcha,
+    mailTransport: emailSettings,
+    createPasswordResetEmail: config.createPasswordResetEmail,
     redis: process.env.REDIS,
     mongo: process.env.MONGO
 });
