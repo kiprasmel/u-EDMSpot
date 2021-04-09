@@ -1,7 +1,7 @@
 const { Buffer } = require('buffer');
 const path = require('path');
 const uwave = require('u-wave-core');
-const createWebClient = require('u-wave-web/middleware').default;
+const createWebClient = require('u-wave-web').default;
 const youTubeSource = require('u-wave-source-youtube');
 const soundCloudSource = require('u-wave-source-soundcloud');
 const dotenv = require('dotenv');

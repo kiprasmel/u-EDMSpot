@@ -9,7 +9,7 @@
         "u-wave-core": "file:../core",
         "u-wave-source-soundcloud": "^2.0.0",
         "u-wave-source-youtube": "^1.3.0",
-        "u-wave-web": "file:../web/packages/u-wave-web-middleware"
+        "u-wave-web": "file:../web/npm"
     },
     "scripts": {
         "core": "cd ../core && npm run test",
