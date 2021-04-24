@@ -1,2 +1,2 @@
 # u-EDMSpot
-https://edmspot.ml
+https://edmspot.net

@@ -249,7 +249,7 @@ exports.createPasswordResetEmail = ({ token, requestUrl }) => {
                   <!-- start permission -->
                   <tr>
                     <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                      <p style="margin: 0;">You received this email because we received a request for https://edmspot.ml for your account. If you didn't request a password reset you can safely delete this email.</p>
+                      <p style="margin: 0;">You received this email because we received a request for https://edmspot.net for your account. If you didn't request a password reset you can safely delete this email.</p>
                     </td>
                   </tr>
                   <!-- end permission -->
