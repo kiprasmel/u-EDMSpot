@@ -13,7 +13,7 @@
     },
     "scripts": {
         "core": "cd ../core && npm run test",
-        "web": "cd ../web && npm run clean && npm run prod",
+        "web": "cd ../web && npm run prerelease",
         "start": "node index.js"
     }
 }
