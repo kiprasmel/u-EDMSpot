@@ -104,7 +104,14 @@ uw.use(async () => {
         uw.express.use(webClient);
     }).catch(err => {
         console.error('Failed Loading Emotes!');
-        console.error(err);
+        
+        const webClient = createWebClient({
+            apiBase: '/api',
+            title: '♪ Electronic Dance Music ♪',
+            recaptcha: recaptcha && { key: recaptcha.key },
+        });
+
+        uw.express.use(webClient);
     });
 });
 
