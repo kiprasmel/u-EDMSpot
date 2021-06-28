@@ -2,8 +2,8 @@ const { Buffer } = require('buffer');
 const path = require('path');
 const uwave = require('u-wave-core');
 const createWebClient = require('u-wave-web').default;
-const youTubeSource = require('u-wave-source-youtube');
-const soundCloudSource = require('u-wave-source-soundcloud');
+// const youTubeSource = require('u-wave-source-youtube');
+// const soundCloudSource = require('u-wave-source-soundcloud');
 const dotenv = require('dotenv');
 const announce = require('u-wave-announce');
 const { EmoteFetcher } = require('@mkody/twitch-emoticons');
@@ -13,15 +13,16 @@ dotenv.config();
 const configPath = './config';
 const config = require(path.resolve(process.cwd(), configPath));
 
-const port = process.env.PORT;
-const secret = Buffer.from(process.env.SECRET, 'hex');
+const port = process.env.PORT || 3000;
+const secret = Buffer.from(process.env.SECRET || "", 'hex');
 
 const fetcher = new EmoteFetcher();
 
-const recaptcha = {
-    secret: process.env.CAPTCHA_SECRET,
-    key: process.env.CAPTCHA_KEY
-};
+const recaptcha = false;
+//  {
+//     secret: process.env.CAPTCHA_SECRET,
+//     key: process.env.CAPTCHA_KEY
+// };
 
 const emailSettings = {
     service: 'gmail',
@@ -52,17 +53,17 @@ uw.on('redisError', (err) => {
 
 uw.use(announce);
 
-uw.use(async () => {
-    uw.source(youTubeSource, {
-        key: process.env.YOUTUBE_API_KEY,
-        search: {
-            videoSyndicated: 'any',
-        }
-    });
-    uw.source(soundCloudSource, {
-        key: process.env.SOUNDCLOUD_API_KEY
-    });
-});
+// uw.use(async () => {
+//     uw.source(youTubeSource, {
+//         key: process.env.YOUTUBE_API_KEY,
+//         search: {
+//             videoSyndicated: 'any',
+//         }
+//     });
+//     uw.source(soundCloudSource, {
+//         key: process.env.SOUNDCLOUD_API_KEY
+//     });
+// });
 
 uw.use(async () => {
     //Load Twitch Emotes
